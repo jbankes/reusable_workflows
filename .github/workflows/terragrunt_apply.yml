@@ -10,7 +10,7 @@ on:
 
 jobs:
   terragrunt_apply:
-    name: Terragrunt Apply - ${{ inputs.working-directory }}
+    name: Terragrunt apply ${{ inputs.working-directory }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:

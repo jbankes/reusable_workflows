@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+
+jobs:
+  terragrunt_apply:
+    name: Terragrunt Apply - ${{ inputs.working-directory }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Install Terragrunt
+      run: brew install terragrunt
+
+    - name: Apply Terragrunt - ${{ inputs.working-directory }}
+      run: terragrunt init && terragrunt apply -auto-approve
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        AWS_DEFAULT_REGION: us-west-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -26,7 +26,7 @@ jobs:
 
     - name: Apply Terragrunt - ${{ inputs.working-directory }}
       run: terragrunt init && terragrunt apply -auto-approve
-      working-directory: ${{ inputs.working-directory }}
+      working-directory: ./tf/${{ inputs.working-directory }}
       env:
         AWS_DEFAULT_REGION: us-west-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
